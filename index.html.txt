@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MG - Motivational Growth</title>
+
+<style>
+  body {
+    margin: 0;
+    background: #0f0f0f;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: Arial, sans-serif;
+  }
+
+  .ipad-frame {
+    width: 400px;
+    height: 650px;
+    background: #ffffff;
+    border-radius: 22px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+    overflow-y: auto;
+  }
+
+  .header {
+    position: sticky;
+    top: 0;
+    background: #ffffff;
+    padding: 12px;
+    text-align: center;
+    font-weight: bold;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .theme-btn {
+    position: absolute;
+    right: 12px;
+    top: 10px;
+    font-size: 12px;
+    padding: 5px 8px;
+    cursor: pointer;
+  }
+
+  .feed {
+    padding: 10px;
+  }
+
+  .post {
+    background: #f3f3f3;
+    border-radius: 14px;
+    padding: 15px;
+    margin-bottom: 12px;
+    text-align: center;
+  }
+
+  .like-btn {
+    margin-top: 10px;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 20px;
+    background: #ff4d4d;
+    color: white;
+    cursor: pointer;
+  }
+
+  .dark {
+    background: #1c1c1c;
+    color: white;
+  }
+
+  .dark .header {
+    background: #1c1c1c;
+    border-bottom: 1px solid #333;
+  }
+
+  .dark .post {
+    background: #2a2a2a;
+  }
+</style>
+</head>
+
+<body>
+
+<div class="ipad-frame" id="app">
+  <div class="header">
+    MG – Motivational Growth
+    <button class="theme-btn" onclick="toggleTheme()">Theme</button>
+  </div>
+
+  <div class="feed">
+    <div class="post">
+      <p>💡 Believe in yourself, even when it’s hard.</p>
+      <button class="like-btn" onclick="like(this)">❤️ 0</button>
+    </div>
+
+    <div class="post">
+      <p>🔥 Small progress every day beats motivation.</p>
+      <button class="like-btn" onclick="like(this)">❤️ 0</button>
+    </div>
+  </div>
+</div>
+
+<script>
+function like(btn) {
+  let count = parseInt(btn.textContent.replace('❤️','')) || 0;
+  btn.textContent = "❤️ " + (count + 1);
+}
+
+function toggleTheme() {
+  document.getElementById("app").classList.toggle("dark");
+}
+</script>
+
+</body>
+</html>
