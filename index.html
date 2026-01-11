@@ -84,12 +84,52 @@
 </div>
 
 <script>
+  const quotes = [
+    "💡 Believe in yourself, even when no one else does.",
+    "🔥 Small progress every day leads to big success.",
+    "🚀 Your future is created by what you do today.",
+    "⏳ Discipline beats motivation.",
+    "💪 Hard work pays off.",
+    "📈 Improve 1% every day."
+  ];
+
+  const app = document.querySelector(".app");
+  let index = 0;
+
+  function addQuote() {
+    const screen = document.createElement("div");
+    screen.className = "screen";
+    screen.innerHTML = `
+      <div>
+        <div class="quote">${quotes[index % quotes.length]}</div>
+        <button class="like" onclick="like(this)">❤️ Like</button>
+      </div>
+    `;
+    app.appendChild(screen);
+    index++;
+  }
+
   function like(btn) {
     btn.textContent = "❤️ Liked";
     btn.classList.add("liked");
     btn.disabled = true;
   }
+
+  // remove old static screens
+  app.innerHTML = "";
+
+  // load first 3
+  for (let i = 0; i < 3; i++) addQuote();
+
+  // infinite scroll
+  app.addEventListener("scroll", () => {
+    if (app.scrollTop + app.clientHeight >= app.scrollHeight - 10) {
+      addQuote();
+    }
+  });
 </script>
+
 
 </body>
 </html>
+
