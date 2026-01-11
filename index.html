@@ -6,107 +6,158 @@
 <title>MG – Motivational Growth</title>
 
 <style>
-  body {
-    margin: 0;
-    background: black;
-    font-family: Arial, sans-serif;
-  }
+body {
+  margin: 0;
+  background: black;
+  font-family: Arial, sans-serif;
+}
 
-  .app {
-    width: 390px;
-    max-width: 100%;
-    height: 100vh;
-    margin: 0 auto;
-    overflow-y: scroll;
-    scroll-snap-type: y mandatory;
-    background: #111;
-  }
+.app {
+  width: 390px;
+  max-width: 100%;
+  height: 100vh;
+  margin: 0 auto;
+  background: #111;
+  display: flex;
+  flex-direction: column;
+}
 
-  .screen {
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 30px;
-    box-sizing: border-box;
-    scroll-snap-align: start;
-    text-align: center;
-  }
+/* PAGES */
+.page {
+  flex: 1;
+  overflow-y: scroll;
+  display: none;
+  scroll-snap-type: y mandatory;
+}
 
-  .quote {
-    font-size: 26px;
-    color: white;
-    line-height: 1.5;
-  }
+.page.active {
+  display: block;
+}
 
-  .like {
-    margin-top: 20px;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 25px;
-    background: #ff4444;
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
-  }
+/* REELS */
+.screen {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 30px;
+  box-sizing: border-box;
+  scroll-snap-align: start;
+}
 
-  .like.liked {
-    background: #444;
-  }
+.quote {
+  font-size: 26px;
+  color: white;
+  line-height: 1.5;
+}
+
+.like {
+  margin-top: 20px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 25px;
+  background: #ff4444;
+  color: white;
+  cursor: pointer;
+}
+
+/* BOTTOM NAV */
+.nav {
+  height: 60px;
+  background: #000;
+  display: flex;
+  border-top: 1px solid #222;
+}
+
+.nav button {
+  flex: 1;
+  background: none;
+  border: none;
+  color: gray;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.nav button.active {
+  color: white;
+}
 </style>
 </head>
 
 <body>
 
-<div class="app" id="app"></div>
+<div class="app">
+
+  <!-- REELS -->
+  <div class="page active" id="reels"></div>
+
+  <!-- FRIENDS -->
+  <div class="page" id="friends">
+    <div class="screen">
+      <div class="quote">👥 Friends – coming soon</div>
+    </div>
+  </div>
+
+  <!-- PROFILE -->
+  <div class="page" id="profile">
+    <div class="screen">
+      <div class="quote">👤 Your profile – coming soon</div>
+    </div>
+  </div>
+
+  <!-- NAV -->
+  <div class="nav">
+    <button class="active" onclick="showPage('reels', this)">🔥 Reels</button>
+    <button onclick="showPage('friends', this)">👥 Friends</button>
+    <button onclick="showPage('profile', this)">👤 Profile</button>
+  </div>
+
+</div>
 
 <script>
-  const quotes = [
-    "💡 Believe in yourself.",
-    "🔥 Small progress every day.",
-    "🚀 Your future starts today.",
-    "⏳ Discipline beats motivation.",
-    "💪 Hard work pays off.",
-    "🌱 Grow even when it’s hard.",
-    "🧠 Your mindset is everything.",
-    "🏆 Success is built daily.",
-    "⚡ Don’t stop now.",
-    "📈 Improve 1% every day."
-  ];
+const quotes = [
+  "💡 Believe in yourself.",
+  "🔥 Small progress every day.",
+  "🚀 Your future starts today.",
+  "⏳ Discipline beats motivation.",
+  "💪 Hard work pays off.",
+  "📈 Improve 1% daily."
+];
 
-  const app = document.getElementById("app");
-  let index = 0;
+const reels = document.getElementById("reels");
+let i = 0;
 
-  function addQuote() {
-    const screen = document.createElement("div");
-    screen.className = "screen";
+function addQuote() {
+  const div = document.createElement("div");
+  div.className = "screen";
+  div.innerHTML = `
+    <div>
+      <div class="quote">${quotes[i % quotes.length]}</div>
+      <button class="like">❤️ Like</button>
+    </div>
+  `;
+  reels.appendChild(div);
+  i++;
+}
 
-    screen.innerHTML = `
-      <div>
-        <div class="quote">${quotes[index % quotes.length]}</div>
-        <button class="like" onclick="like(this)">❤️ Like</button>
-      </div>
-    `;
+// load first
+for (let j = 0; j < 4; j++) addQuote();
 
-    app.appendChild(screen);
-    index++;
+// infinite scroll
+reels.addEventListener("scroll", () => {
+  if (reels.scrollTop + reels.clientHeight >= reels.scrollHeight - 10) {
+    addQuote();
   }
+});
 
-  function like(btn) {
-    btn.textContent = "❤️ Liked";
-    btn.classList.add("liked");
-    btn.disabled = true;
-  }
+function showPage(id, btn) {
+  document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
 
-  // Load first 5
-  for (let i = 0; i < 5; i++) addQuote();
-
-  // Infinite scroll
-  app.addEventListener("scroll", () => {
-    if (app.scrollTop + app.clientHeight >= app.scrollHeight - 10) {
-      addQuote();
-    }
-  });
+  document.querySelectorAll(".nav button").forEach(b => b.classList.remove("active"));
+  btn.classList.add("active");
+}
 </script>
 
 </body>
