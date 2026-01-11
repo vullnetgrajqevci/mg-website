@@ -8,8 +8,8 @@
 <style>
   body {
     margin: 0;
-    background: black;
     font-family: Arial, sans-serif;
+    background: black;
   }
 
   .app {
@@ -53,35 +53,45 @@
   .like.liked {
     background: #444;
   }
+
+  /* THEME BUTTON */
+  .theme-btn {
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    z-index: 10;
+    padding: 8px 14px;
+    border: none;
+    border-radius: 20px;
+    background: #444;
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+  }
+
+  /* THEMES */
+  body.dark { background: black; }
+  body.dark .app { background: #111; }
+
+  body.blue { background: #001f3f; }
+  body.blue .app { background: #003366; }
+
+  body.red { background: #2b0000; }
+  body.red .app { background: #400000; }
+
+  body.green { background: #002b1a; }
+  body.green .app { background: #004d33; }
+
+  body.purple { background: #1a0033; }
+  body.purple .app { background: #2d0059; }
 </style>
 </head>
 
-<body>
+<body class="dark">
 
-<div class="app">
+<button class="theme-btn" onclick="changeTheme()">🎨 Theme</button>
 
-  <div class="screen">
-    <div>
-      <div class="quote">💡 Believe in yourself, even when no one else does.</div>
-      <button class="like" onclick="like(this)">❤️ Like</button>
-    </div>
-  </div>
-
-  <div class="screen">
-    <div>
-      <div class="quote">🔥 Small progress every day leads to big success.</div>
-      <button class="like" onclick="like(this)">❤️ Like</button>
-    </div>
-  </div>
-
-  <div class="screen">
-    <div>
-      <div class="quote">🚀 Your future is created by what you do today.</div>
-      <button class="like" onclick="like(this)">❤️ Like</button>
-    </div>
-  </div>
-
-</div>
+<div class="app"></div>
 
 <script>
   const quotes = [
@@ -92,6 +102,9 @@
     "💪 Hard work pays off.",
     "📈 Improve 1% every day."
   ];
+
+  const themes = ["dark", "blue", "red", "green", "purple"];
+  let themeIndex = 0;
 
   const app = document.querySelector(".app");
   let index = 0;
@@ -115,10 +128,13 @@
     btn.disabled = true;
   }
 
-  // remove old static screens
-  app.innerHTML = "";
+  function changeTheme() {
+    document.body.classList.remove(themes[themeIndex]);
+    themeIndex = (themeIndex + 1) % themes.length;
+    document.body.classList.add(themes[themeIndex]);
+  }
 
-  // load first 3
+  // load first quotes
   for (let i = 0; i < 3; i++) addQuote();
 
   // infinite scroll
@@ -129,7 +145,5 @@
   });
 </script>
 
-
 </body>
 </html>
-
