@@ -20,11 +20,13 @@
     overflow-y: scroll;
     scroll-snap-type: y mandatory;
     background: #111;
+    position: relative;
   }
 
   .screen {
     height: 100vh;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     padding: 30px;
@@ -37,6 +39,7 @@
     font-size: 26px;
     color: white;
     line-height: 1.5;
+    margin-top: 20px;
   }
 
   .like {
@@ -54,19 +57,17 @@
     background: #444;
   }
 
-  /* THEME BUTTON */
+  /* THEME BUTTON QENDËR-LART */
   .theme-btn {
-    position: fixed;
-    top: 15px;
-    right: 15px;
-    z-index: 10;
-    padding: 8px 14px;
+    margin: 10px auto 0 auto;
+    display: block;
+    padding: 10px 20px;
     border: none;
-    border-radius: 20px;
+    border-radius: 25px;
     background: #444;
     color: white;
     cursor: pointer;
-    font-size: 14px;
+    font-size: 16px;
   }
 
   /* THEMES */
@@ -89,7 +90,7 @@
 
 <body class="dark">
 
-<button class="theme-btn" onclick="changeTheme()">🎨 Theme</button>
+<button class="theme-btn" onclick="changeTheme()">🎨 Change Theme</button>
 
 <div class="app"></div>
 
