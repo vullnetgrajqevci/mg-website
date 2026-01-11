@@ -6,7 +6,6 @@
 <title>MG – Motivational Growth</title>
 
 <style>
-  /* BODY & CENTER PHONE */
   body {
     margin: 0;
     background: #000;
@@ -17,7 +16,6 @@
     font-family: Arial, sans-serif;
   }
 
-  /* PHONE FRAME */
   .phone-frame {
     width: 390px;
     height: 700px;
@@ -31,7 +29,6 @@
     align-items: center;
   }
 
-  /* THEME BUTTON QENDËR-LART */
   .theme-btn {
     margin: 10px auto 0 auto;
     display: block;
@@ -45,7 +42,6 @@
     z-index: 10;
   }
 
-  /* APP CONTAINER */
   .app {
     flex: 1;
     width: 100%;
@@ -138,10 +134,11 @@
 
   <!-- Navbar poshte -->
   <div class="navbar">
-    <button>🏠</button>
+    <button onclick="scrollToTop()">🏠</button>
     <button>👥</button>
     <button>🎬</button>
     <button>👤</button>
+    <button onclick="scrollToTop()">💡</button>
   </div>
 </div>
 
@@ -184,6 +181,10 @@
     document.body.classList.remove(themes[themeIndex]);
     themeIndex = (themeIndex + 1) % themes.length;
     document.body.classList.add(themes[themeIndex]);
+  }
+
+  function scrollToTop() {
+    app.scrollTop = 0;
   }
 
   // Load first quotes
