@@ -83,7 +83,6 @@
     background: #444;
   }
 
-  /* NAVBAR POSHTE */
   .navbar {
     position: absolute;
     bottom: 0;
@@ -104,7 +103,6 @@
     cursor: pointer;
   }
 
-  /* THEMES */
   body.dark { background: black; }
   body.dark .phone-frame { background: #111; }
 
@@ -126,18 +124,15 @@
 <body class="dark">
 
 <div class="phone-frame">
-  <!-- Theme button -->
   <button class="theme-btn" onclick="changeTheme()">🎨 Change Theme</button>
 
-  <!-- Quotes app -->
   <div class="app"></div>
 
-  <!-- Navbar poshte -->
   <div class="navbar">
     <button onclick="scrollToTop()">🏠</button>
     <button>👥</button>
     <button>🎬</button>
-    <button>👤</button>
+    <button onclick="profileLogin()">👤</button>
     <button onclick="scrollToTop()">💡</button>
   </div>
 </div>
@@ -185,6 +180,15 @@
 
   function scrollToTop() {
     app.scrollTop = 0;
+  }
+
+  function profileLogin() {
+    const username = prompt("Enter your username to login:");
+    if(username && username.trim() !== "") {
+      alert(`Welcome, ${username}!`);
+    } else {
+      alert("Login cancelled.");
+    }
   }
 
   // Load first quotes
