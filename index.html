@@ -6,32 +6,20 @@
 <title>MG – Motivational Growth</title>
 
 <style>
+  /* BODY */
   body {
     margin: 0;
-    background: #000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
     font-family: Arial, sans-serif;
-  }
-
-  .phone-frame {
-    width: 390px;
-    height: 700px;
     background: #111;
-    border-radius: 30px;
-    box-shadow: 0 0 30px rgba(0,0,0,0.7);
-    overflow: hidden;
-    position: relative;
+    color: white;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    height: 100vh;
+    overflow: hidden;
   }
 
+  /* THEME BUTTON */
   .theme-btn {
-    margin: 10px auto 0 auto;
-    display: block;
     padding: 10px 20px;
     border: none;
     border-radius: 25px;
@@ -39,37 +27,35 @@
     color: white;
     cursor: pointer;
     font-size: 16px;
-    z-index: 10;
+    margin: 10px auto;
   }
 
+  /* APP CONTAINER (FEED) */
   .app {
     flex: 1;
-    width: 100%;
     overflow-y: scroll;
     scroll-snap-type: y mandatory;
   }
 
   .screen {
-    height: 100%;
+    height: 100vh;
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: center;
-    padding: 30px;
-    box-sizing: border-box;
+    align-items: center;
     scroll-snap-align: start;
     text-align: center;
+    padding: 20px;
+    box-sizing: border-box;
   }
 
   .quote {
-    font-size: 26px;
-    color: white;
+    font-size: 32px;
+    margin-bottom: 20px;
     line-height: 1.5;
-    margin-top: 20px;
   }
 
   .like {
-    margin-top: 20px;
     padding: 10px 20px;
     border: none;
     border-radius: 25px;
@@ -83,16 +69,13 @@
     background: #444;
   }
 
+  /* NAVBAR BOTTOM */
   .navbar {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
     height: 60px;
     background: #222;
     display: flex;
     justify-content: space-around;
     align-items: center;
-    color: white;
     font-size: 24px;
   }
 
@@ -103,38 +86,40 @@
     cursor: pointer;
   }
 
-  body.dark { background: black; }
-  body.dark .phone-frame { background: #111; }
+  /* THEMES */
+  body.dark { background: #111; }
+  body.dark .theme-btn { background: #444; }
 
   body.blue { background: #001f3f; }
-  body.blue .phone-frame { background: #003366; }
+  body.blue .theme-btn { background: #003366; }
 
   body.red { background: #2b0000; }
-  body.red .phone-frame { background: #400000; }
+  body.red .theme-btn { background: #400000; }
 
   body.green { background: #002b1a; }
-  body.green .phone-frame { background: #004d33; }
+  body.green .theme-btn { background: #004d33; }
 
   body.purple { background: #1a0033; }
-  body.purple .phone-frame { background: #2d0059; }
+  body.purple .theme-btn { background: #2d0059; }
 
 </style>
 </head>
 
 <body class="dark">
 
-<div class="phone-frame">
-  <button class="theme-btn" onclick="changeTheme()">🎨 Change Theme</button>
+<!-- Theme Button -->
+<button class="theme-btn" onclick="changeTheme()">🎨 Change Theme</button>
 
-  <div class="app"></div>
+<!-- Quotes Feed -->
+<div class="app"></div>
 
-  <div class="navbar">
-    <button onclick="scrollToTop()">🏠</button>
-    <button>👥</button>
-    <button>🎬</button>
-    <button onclick="profileLogin()">👤</button>
-    <button onclick="scrollToTop()">💡</button>
-  </div>
+<!-- Navbar -->
+<div class="navbar">
+  <button onclick="scrollToTop()">🏠</button>
+  <button>👥</button>
+  <button>🎬</button>
+  <button onclick="profileLogin()">👤</button>
+  <button onclick="scrollToTop()">💡</button>
 </div>
 
 <script>
@@ -157,10 +142,8 @@
     const screen = document.createElement("div");
     screen.className = "screen";
     screen.innerHTML = `
-      <div>
-        <div class="quote">${quotes[index % quotes.length]}</div>
-        <button class="like" onclick="like(this)">❤️ Like</button>
-      </div>
+      <div class="quote">${quotes[index % quotes.length]}</div>
+      <button class="like" onclick="like(this)">❤️ Like</button>
     `;
     app.appendChild(screen);
     index++;
@@ -191,15 +174,16 @@
     }
   }
 
-  // Load first quotes
+  // Load first 3 quotes
   for (let i = 0; i < 3; i++) addQuote();
 
   // Infinite scroll
   app.addEventListener("scroll", () => {
-    if (app.scrollTop + app.clientHeight >= app.scrollHeight - 10) {
+    if(app.scrollTop + app.clientHeight >= app.scrollHeight - 10){
       addQuote();
     }
   });
+
 </script>
 
 </body>
