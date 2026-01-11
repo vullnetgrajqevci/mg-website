@@ -12,7 +12,6 @@
     font-family: Arial, sans-serif;
   }
 
-  /* App container (phone style) */
   .app {
     width: 390px;
     max-width: 100%;
@@ -23,7 +22,6 @@
     background: #111;
   }
 
-  /* Each full-screen post */
   .screen {
     height: 100vh;
     display: flex;
@@ -41,7 +39,6 @@
     line-height: 1.5;
   }
 
-  /* Like button */
   .like {
     margin-top: 20px;
     padding: 10px 20px;
@@ -61,46 +58,56 @@
 
 <body>
 
-<div class="app">
-
-  <div class="screen">
-    <div>
-      <div class="quote">💡 Believe in yourself, even when no one else does.</div>
-      <button class="like" onclick="like(this)">❤️ Like</button>
-    </div>
-  </div>
-
-  <div class="screen">
-    <div>
-      <div class="quote">🔥 Small progress every day leads to big success.</div>
-      <button class="like" onclick="like(this)">❤️ Like</button>
-    </div>
-  </div>
-
-  <div class="screen">
-    <div>
-      <div class="quote">🚀 Your future is created by what you do today.</div>
-      <button class="like" onclick="like(this)">❤️ Like</button>
-    </div>
-  </div>
-
-  <div class="screen">
-    <div>
-      <div class="quote">⏳ Don’t wait for motivation. Create discipline.</div>
-      <button class="like" onclick="like(this)">❤️ Like</button>
-    </div>
-  </div>
-
-</div>
+<div class="app" id="app"></div>
 
 <script>
+  const quotes = [
+    "💡 Believe in yourself.",
+    "🔥 Small progress every day.",
+    "🚀 Your future starts today.",
+    "⏳ Discipline beats motivation.",
+    "💪 Hard work pays off.",
+    "🌱 Grow even when it’s hard.",
+    "🧠 Your mindset is everything.",
+    "🏆 Success is built daily.",
+    "⚡ Don’t stop now.",
+    "📈 Improve 1% every day."
+  ];
+
+  const app = document.getElementById("app");
+  let index = 0;
+
+  function addQuote() {
+    const screen = document.createElement("div");
+    screen.className = "screen";
+
+    screen.innerHTML = `
+      <div>
+        <div class="quote">${quotes[index % quotes.length]}</div>
+        <button class="like" onclick="like(this)">❤️ Like</button>
+      </div>
+    `;
+
+    app.appendChild(screen);
+    index++;
+  }
+
   function like(btn) {
     btn.textContent = "❤️ Liked";
     btn.classList.add("liked");
     btn.disabled = true;
   }
+
+  // Load first 5
+  for (let i = 0; i < 5; i++) addQuote();
+
+  // Infinite scroll
+  app.addEventListener("scroll", () => {
+    if (app.scrollTop + app.clientHeight >= app.scrollHeight - 10) {
+      addQuote();
+    }
+  });
 </script>
 
 </body>
 </html>
-
