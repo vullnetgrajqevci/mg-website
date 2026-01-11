@@ -6,25 +6,55 @@
 <title>MG – Motivational Growth</title>
 
 <style>
+  /* BODY & CENTER PHONE */
   body {
     margin: 0;
+    background: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
     font-family: Arial, sans-serif;
-    background: black;
   }
 
-  .app {
+  /* PHONE FRAME */
+  .phone-frame {
     width: 390px;
-    max-width: 100%;
-    height: 100vh;
-    margin: 0 auto;
+    height: 700px;
+    background: #111;
+    border-radius: 30px;
+    box-shadow: 0 0 30px rgba(0,0,0,0.7);
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* THEME BUTTON QENDËR-LART */
+  .theme-btn {
+    margin: 10px auto 0 auto;
+    display: block;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 25px;
+    background: #444;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    z-index: 10;
+  }
+
+  /* APP CONTAINER */
+  .app {
+    flex: 1;
+    width: 100%;
     overflow-y: scroll;
     scroll-snap-type: y mandatory;
-    background: #111;
-    position: relative;
   }
 
   .screen {
-    height: 100vh;
+    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -57,41 +87,11 @@
     background: #444;
   }
 
-  /* THEME BUTTON QENDËR-LART */
-  .theme-btn {
-    margin: 10px auto 0 auto;
-    display: block;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 25px;
-    background: #444;
-    color: white;
-    cursor: pointer;
-    font-size: 16px;
-  }
-
-  /* THEMES */
-  body.dark { background: black; }
-  body.dark .app { background: #111; }
-
-  body.blue { background: #001f3f; }
-  body.blue .app { background: #003366; }
-
-  body.red { background: #2b0000; }
-  body.red .app { background: #400000; }
-
-  body.green { background: #002b1a; }
-  body.green .app { background: #004d33; }
-
-  body.purple { background: #1a0033; }
-  body.purple .app { background: #2d0059; }
-
   /* NAVBAR POSHTE */
   .navbar {
-    position: fixed;
+    position: absolute;
     bottom: 0;
-    width: 390px;
-    max-width: 100%;
+    width: 100%;
     height: 60px;
     background: #222;
     display: flex;
@@ -108,23 +108,41 @@
     cursor: pointer;
   }
 
+  /* THEMES */
+  body.dark { background: black; }
+  body.dark .phone-frame { background: #111; }
+
+  body.blue { background: #001f3f; }
+  body.blue .phone-frame { background: #003366; }
+
+  body.red { background: #2b0000; }
+  body.red .phone-frame { background: #400000; }
+
+  body.green { background: #002b1a; }
+  body.green .phone-frame { background: #004d33; }
+
+  body.purple { background: #1a0033; }
+  body.purple .phone-frame { background: #2d0059; }
+
 </style>
 </head>
 
 <body class="dark">
 
-<!-- Theme button qendër-lart -->
-<button class="theme-btn" onclick="changeTheme()">🎨 Change Theme</button>
+<div class="phone-frame">
+  <!-- Theme button -->
+  <button class="theme-btn" onclick="changeTheme()">🎨 Change Theme</button>
 
-<!-- App quotes -->
-<div class="app"></div>
+  <!-- Quotes app -->
+  <div class="app"></div>
 
-<!-- Navbar poshtë -->
-<div class="navbar">
-  <button>🏠</button>
-  <button>👥</button>
-  <button>🎬</button>
-  <button>👤</button>
+  <!-- Navbar poshte -->
+  <div class="navbar">
+    <button>🏠</button>
+    <button>👥</button>
+    <button>🎬</button>
+    <button>👤</button>
+  </div>
 </div>
 
 <script>
@@ -168,10 +186,10 @@
     document.body.classList.add(themes[themeIndex]);
   }
 
-  // load first quotes
+  // Load first quotes
   for (let i = 0; i < 3; i++) addQuote();
 
-  // infinite scroll
+  // Infinite scroll
   app.addEventListener("scroll", () => {
     if (app.scrollTop + app.clientHeight >= app.scrollHeight - 10) {
       addQuote();
